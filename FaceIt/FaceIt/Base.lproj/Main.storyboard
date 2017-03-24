@@ -32,6 +32,9 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
                                         <color key="value" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -43,6 +46,9 @@
                             <constraint firstItem="hll-rL-9Zn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rwD-Kp-XSG"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="faceView" destination="hll-rL-9Zn" id="tuc-8I-KU7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
