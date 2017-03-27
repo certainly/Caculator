@@ -8,24 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		5C2204ED1E83C793006B1362 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2204EC1E83C793006B1362 /* AppDelegate.swift */; };
-		5C2204EF1E83C793006B1362 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2204EE1E83C793006B1362 /* ViewController.swift */; };
+		5C2204EF1E83C793006B1362 /* FaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2204EE1E83C793006B1362 /* FaceViewController.swift */; };
 		5C2204F21E83C793006B1362 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2204F01E83C793006B1362 /* Main.storyboard */; };
 		5C2204F41E83C793006B1362 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C2204F31E83C793006B1362 /* Assets.xcassets */; };
 		5C2204F71E83C793006B1362 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2204F51E83C793006B1362 /* LaunchScreen.storyboard */; };
 		5C2205001E83C7F2006B1362 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2204FF1E83C7F2006B1362 /* FaceView.swift */; };
 		5C2205021E8507F6006B1362 /* FacialExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2205011E8507F6006B1362 /* FacialExpression.swift */; };
+		5C2205061E891028006B1362 /* EmotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2205051E891028006B1362 /* EmotionsViewController.swift */; };
+		5C2205081E892EA6006B1362 /* VCLLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2205071E892EA6006B1362 /* VCLLoggingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C2204E91E83C793006B1362 /* FaceIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C2204EC1E83C793006B1362 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C2204EE1E83C793006B1362 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5C2204EE1E83C793006B1362 /* FaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceViewController.swift; sourceTree = "<group>"; };
 		5C2204F11E83C793006B1362 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C2204F31E83C793006B1362 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C2204F61E83C793006B1362 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C2204F81E83C793006B1362 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C2204FF1E83C7F2006B1362 /* FaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		5C2205011E8507F6006B1362 /* FacialExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacialExpression.swift; sourceTree = "<group>"; };
+		5C2205051E891028006B1362 /* EmotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionsViewController.swift; sourceTree = "<group>"; };
+		5C2205071E892EA6006B1362 /* VCLLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCLLoggingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +63,12 @@
 			isa = PBXGroup;
 			children = (
 				5C2204FF1E83C7F2006B1362 /* FaceView.swift */,
-				5C2204EE1E83C793006B1362 /* ViewController.swift */,
+				5C2205071E892EA6006B1362 /* VCLLoggingViewController.swift */,
+				5C2204EE1E83C793006B1362 /* FaceViewController.swift */,
 				5C2204F01E83C793006B1362 /* Main.storyboard */,
 				5C2204FE1E83C7B3006B1362 /* Supporting Files */,
 				5C2205011E8507F6006B1362 /* FacialExpression.swift */,
+				5C2205051E891028006B1362 /* EmotionsViewController.swift */,
 			);
 			path = FaceIt;
 			sourceTree = "<group>";
@@ -151,8 +157,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C2204EF1E83C793006B1362 /* ViewController.swift in Sources */,
+				5C2205081E892EA6006B1362 /* VCLLoggingViewController.swift in Sources */,
+				5C2204EF1E83C793006B1362 /* FaceViewController.swift in Sources */,
 				5C2205021E8507F6006B1362 /* FacialExpression.swift in Sources */,
+				5C2205061E891028006B1362 /* EmotionsViewController.swift in Sources */,
 				5C2204ED1E83C793006B1362 /* AppDelegate.swift in Sources */,
 				5C2205001E83C7F2006B1362 /* FaceView.swift in Sources */,
 			);
@@ -318,6 +326,7 @@
 				5C2204FD1E83C793006B1362 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
