@@ -13,7 +13,9 @@ import Foundation
 
 
 
-struct CaculatorBrain {
+struct CalculatorBrain {
+    
+    var variableValues = [String:Double]()
     
     private var accumulator: Double?
     
@@ -63,6 +65,7 @@ struct CaculatorBrain {
         
     
     mutating func performOperation(_ symbol: String)  {
+         internalProgram.append(symbol as AnyObject)
         if let operation = operations[symbol] {
             switch operation {
             case .constant(let value):
@@ -113,6 +116,24 @@ struct CaculatorBrain {
     mutating func setOperand(_ operand: Double) {
         accumulator = operand
         descriptionAccumulator = String(format:"%g", operand)
+        internalProgram.append(operand as AnyObject)
+    }
+    
+    mutating func setOperand(_ variableName: String) {
+        variableValues[variableName] = variableValues[variableName] ?? 0.0
+        accumulator = variableValues[variableName]!
+        descriptionAccumulator = variableName
+        internalProgram.append(variableName as AnyObject)
+    }
+    
+    mutating func undo() {
+        if !internalProgram.isEmpty {
+            internalProgram.removeLast()
+            program = internalProgram as CalculatorBrain.PropertyList
+        } else {
+            clear()
+            descriptionAccumulator = ""
+        }
     }
     
     var result: Double? {
@@ -120,11 +141,36 @@ struct CaculatorBrain {
             return accumulator
         }
     }
+    fileprivate var internalProgram = [AnyObject]()
+    typealias PropertyList = AnyObject
+    
+    var program: PropertyList {
+        get {
+            return internalProgram as CalculatorBrain.PropertyList
+        }
+        set {
+            clear()
+            if let arrayOfOps = newValue as? [AnyObject] {
+                for op in arrayOfOps {
+                    if let operand = op as? Double {
+                        setOperand(operand)
+                    } else if let variabelName = op as? String {
+                        if variableValues[variabelName] != nil {
+                            setOperand(variabelName)
+                        } else if let operation = op as? String{
+                            performOperation(operation)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     mutating func clear() {
         pendingBinaryOperation = nil
         accumulator = 0
         descriptionAccumulator = "0"
+        internalProgram.removeAll()
     }
     
     func getDescription() -> String {

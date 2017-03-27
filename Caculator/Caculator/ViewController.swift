@@ -14,7 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var userIsInMiddleOfTyping = false
-    
+    fileprivate func updateUI() {
+        descriptionLabel.text = (brain.description.isEmpty ? " " : brain.getDescription())
+        displayValue = brain.result ?? 42
+    }
     
     @IBAction func touchDigit(_ sender: UIButton) {
         
@@ -51,7 +54,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private var brain = CaculatorBrain()
+    private var brain = CalculatorBrain()
     
     @IBAction func performOperation(_ sender: UIButton) {
         if userIsInMiddleOfTyping {
@@ -63,12 +66,18 @@ class ViewController: UIViewController {
         }
 //        if let result = brain.result {
 //        }
-        displayValue = brain.result ?? displayValue
+        updateUI()
         
     }
     
     @IBAction func backspace(_ sender: UIButton) {
-        guard userIsInMiddleOfTyping, var number = display.text else {
+        guard userIsInMiddleOfTyping == true else {
+            brain.undo()
+            updateUI()
+            return
+        }
+        
+        guard var number = display.text else {
             return
         }
         number = String(number.characters.dropLast(1))
@@ -88,6 +97,35 @@ class ViewController: UIViewController {
    static func DLog(_ message: String = "", file: String = #file, function: String = #function, line: Int = #line) {
         let filename = file.components(separatedBy: "/").last!.components(separatedBy: ".").first!
         print("ctl \(filename) : \(line) -> \(function)  - \(message)")
+    }
+    @IBAction func setVariable(_ sender: Any) {
+        brain.variableValues[Constants.Math.variableName] = displayValue
+        if userIsInMiddleOfTyping {
+            userIsInMiddleOfTyping = false
+        } else {
+            brain.undo()
+        }
+        
+        brain.program = brain.program
+        updateUI()
+    }
+    
+    @IBAction func getVariable() {
+        brain.setOperand(Constants.Math.variableName)
+        userIsInMiddleOfTyping = false
+        updateUI()
+    }
+    
+    var savedProgram: CalculatorBrain.PropertyList?
+    @IBAction func save() {
+        savedProgram = brain.program
+    }
+    
+    @IBAction func restore() {
+        if savedProgram != nil {
+            brain.program = savedProgram!
+            displayValue = brain.result!
+        }
     }
 
 }
