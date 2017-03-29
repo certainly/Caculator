@@ -21,9 +21,19 @@ class ImageViewController: UIViewController {
     
     private func fetchImage() {
         if let url = imageURL {
-            let urlContents = try? Data(contentsOf: url)
-            if let imageData = urlContents {
-                image = UIImage(data: imageData)
+            spinner.startAnimating()
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                
+                let urlContents = try? Data(contentsOf: url)
+                if let imageData = urlContents, url == self?.imageURL {
+                    // now we want to set the image in the UI
+                    // but we are not on the main thread right now
+                    // so we are not allowed to do UI
+                    // no problem: just dispatch the UI stuff back to the main queue
+                    DispatchQueue.main.async {
+                        self?.image = UIImage(data: imageData)
+                    }
+                }
             }
         }
     }
@@ -31,7 +41,7 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageURL = DemoURL.stanford
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +50,7 @@ class ImageViewController: UIViewController {
             fetchImage()
         }
     }
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     fileprivate var imageView = UIImageView()
     @IBOutlet weak var scrollView: UIScrollView! {
@@ -60,6 +71,7 @@ class ImageViewController: UIViewController {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            spinner?.stopAnimating()
         }
     }
 
