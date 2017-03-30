@@ -174,7 +174,7 @@ struct CalculatorBrain {
     }
     
     func getDescription() -> String {
-        ViewController.DLog("\(description)")
+      
 //        return "cccc"
         let whitespace = (description.hasSuffix(" ") ? "" : " ")
         return resultIsPending ? (description + whitespace  + "...") : (description + whitespace  + "=")

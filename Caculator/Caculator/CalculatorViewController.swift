@@ -8,15 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    
+    @IBOutlet weak var graphButton: UIButton!
     var userIsInMiddleOfTyping = false
     fileprivate func updateUI() {
         descriptionLabel.text = (brain.description.isEmpty ? " " : brain.getDescription())
         displayValue = brain.result ?? 42
+        graphButton.isEnabled = !brain.resultIsPending
     }
     
     @IBAction func touchDigit(_ sender: UIButton) {
@@ -44,7 +45,7 @@ class ViewController: UIViewController {
             return Double(display.text!)!
         }
         set {
-            ViewController.DLog("descrition")
+            
 //            print("ctld dd")
             descriptionLabel.text = brain.getDescription()
             let formatter = NumberFormatter()
@@ -128,5 +129,33 @@ class ViewController: UIViewController {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "Show Graph":
+                guard !brain.resultIsPending else {
+                    NSLog(Constants.Error.partialResult)
+                    return
+                }
+                
+                var destinationVC = segue.destination
+                if let nvc = destinationVC as? UINavigationController {
+                    destinationVC = nvc.visibleViewController ?? destinationVC
+                }
+                
+                if let vc = destinationVC as? GraphViewController {
+                    vc.navigationItem.title = brain.description
+                    vc.function = {
+                        (x: CGFloat) -> Double in
+                        self.brain.variableValues[Constants.Math.variableName] = Double(x)
+                        self.brain.program = self.brain.program
+                        return self.brain.result!
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
 }
 

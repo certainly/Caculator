@@ -13,4 +13,13 @@ struct Constants {
         static let numberOfDigitsAfterDecimalPoint = 6
         static let variableName = "M"
     }
+    
+    struct Drawing {
+        static let pointsPerUnit = 40.0
+    }
+    
+    struct Error {
+        static let data = "Calculator: DataSource wasn't found"
+        static let partialResult = "Calculator: Trying to draw a partial result"
+    }
 }
