@@ -39,7 +39,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func searchForTweets() {
-        if let request = twitterRequest() {
+        if let request = lastTwitterRequest?.newer ?? twitterRequest() {
             lastTwitterRequest = request
             request.fetchTweets({ [weak self] newTweets in
                 DispatchQueue.main.async {
@@ -100,6 +100,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 //        cell.detailTextLabel?.text = tweet.user.name 
         return cell
     }
-
-   
+    
+    // Added after lecture for REFRESHING
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // make it a little clearer when each pull from Twitter
+        // occurs in the table by setting section header titles
+        return "\(tweets.count-section)"
+    }
 }
