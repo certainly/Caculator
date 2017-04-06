@@ -26,6 +26,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             tableView.reloadData()
             searchForTweets()
             title = searchText
+            RecentQueries.add(searchText!)
         }
     }
     

@@ -19,7 +19,10 @@ class TweetTableViewCell: UITableViewCell {
     var tweet: Twitter.Tweet? { didSet { updateUI() } }
     
     private func updateUI() {
-        tweetTextLabel.text = tweet?.text
+        if tweet != nil {
+            tweetTextLabel.attributedText = getColorfulTextLabel(tweet!)
+        }
+//        tweetTextLabel.text = tweet?.text
         tweetUserLabel.text = tweet?.user.description
         
         if let profileImageURL = tweet?.user.profileImageURL {
@@ -46,5 +49,38 @@ class TweetTableViewCell: UITableViewCell {
             tweetCreatedLabel.text = nil  
         }
     }
+    
+    
+    fileprivate struct Color {
+        static let user = UIColor.purple
+        static let hashtag = UIColor.darkGray
+        static let url = UIColor.blue
+    }
+    
+    
+    private func getColorfulTextLabel(_ tweet: Twitter.Tweet) -> NSMutableAttributedString {
+        var text = tweet.text
+        for _ in tweet.media {
+            text += " 📷"
+        }
+        
+        // Enhance Smashtag from lecture to highlight (in a different color for each) hashtags,
+        // urls and user screen names mentioned in the text of each Tweet
+        let attributedText = NSMutableAttributedString(string: text)
+        attributedText.setMensionsColor(tweet.hashtags, color: Color.hashtag)
+        attributedText.setMensionsColor(tweet.urls, color: Color.url)
+        attributedText.setMensionsColor(tweet.userMentions, color: Color.user)
+        
+        return attributedText
 
+    }
+
+}
+
+private extension NSMutableAttributedString {
+    func setMensionsColor(_ mensions: [Mention], color: UIColor) {
+        for mension in mensions {
+            addAttribute(NSForegroundColorAttributeName, value: color, range: mension.nsrange)
+        }
+    }
 }
